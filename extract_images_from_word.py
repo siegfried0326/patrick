@@ -177,7 +177,7 @@ def main():
     print("=" * 70)
 
     # 파일 경로 입력 (기본값 설정)
-    default_path = r"C:\Users\up_ma\OneDrive\바탕 화면\게임캔버스\1.기획이론\포트폴리오_구본일\원고작업\원고서식_25년버전의 1. 게임기획 취업바이블_기획의개요"
+    default_path = r"C:\Users\up_ma\OneDrive\바탕 화면\게임캔버스\1.기획이론\포트폴리오_구본일\원고작업\원고서식_25년버전\1. 게임기획 취업바이블_기획의개요.docx"
 
     print(f"\n기본 경로: {default_path}")
     docx_path = input("\nWord 문서 경로를 입력하세요 (엔터: 기본값 사용): ").strip()
