@@ -1,0 +1,728 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Word 이미지 추출 도구 다운로드</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            width: 100%;
+            padding: 40px;
+        }
+
+        h1 {
+            color: #333;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .file-list {
+            display: grid;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .file-item {
+            background: #f8f9fa;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .file-item:hover {
+            border-color: #667eea;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.2);
+        }
+
+        .file-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .file-name {
+            font-weight: bold;
+            color: #333;
+            font-size: 1.1em;
+        }
+
+        .file-badge {
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .file-desc {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .download-btn {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .download-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .download-btn:active {
+            transform: scale(0.98);
+        }
+
+        .instructions {
+            background: #e7f3ff;
+            border-left: 4px solid #2196F3;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+
+        .instructions h3 {
+            color: #1976D2;
+            margin-bottom: 15px;
+        }
+
+        .instructions ol {
+            margin-left: 20px;
+            line-height: 2;
+            color: #333;
+        }
+
+        .instructions li {
+            margin-bottom: 10px;
+        }
+
+        .download-all-btn {
+            background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        .download-all-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 25px rgba(56, 239, 125, 0.4);
+        }
+
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📦 Word 이미지 추출 도구</h1>
+        <p class="subtitle">게임기획 문서에서 이미지를 추출하고 엑셀로 분석하는 도구</p>
+
+        <button class="download-all-btn" onclick="downloadAll()">
+            <span class="emoji">⬇️</span>모든 파일 한번에 다운로드
+        </button>
+
+        <div class="file-list">
+            <div class="file-item">
+                <div class="file-header">
+                    <span class="file-name">📄 extract_images_from_word.py</span>
+                    <span class="file-badge">메인</span>
+                </div>
+                <div class="file-desc">
+                    Word 문서에서 이미지를 추출하고 분석하여 엑셀 파일을 생성하는 메인 프로그램입니다.
+                </div>
+                <button class="download-btn" onclick="downloadFile('py')">다운로드</button>
+            </div>
+
+            <div class="file-item">
+                <div class="file-header">
+                    <span class="file-name">⚡ 실행.bat</span>
+                    <span class="file-badge">추천</span>
+                </div>
+                <div class="file-desc">
+                    더블클릭만 하면 자동으로 프로그램이 실행됩니다. 가장 쉬운 실행 방법!
+                </div>
+                <button class="download-btn" onclick="downloadFile('run')">다운로드</button>
+            </div>
+
+            <div class="file-item">
+                <div class="file-header">
+                    <span class="file-name">🔧 라이브러리_설치.bat</span>
+                    <span class="file-badge">필수</span>
+                </div>
+                <div class="file-desc">
+                    필요한 Python 라이브러리를 자동으로 설치합니다. 최초 1회만 실행하세요.
+                </div>
+                <button class="download-btn" onclick="downloadFile('install')">다운로드</button>
+            </div>
+
+            <div class="file-item">
+                <div class="file-header">
+                    <span class="file-name">📖 README_사용법.md</span>
+                    <span class="file-badge">도움말</span>
+                </div>
+                <div class="file-desc">
+                    상세한 사용 설명서와 문제 해결 방법이 포함되어 있습니다.
+                </div>
+                <button class="download-btn" onclick="downloadFile('readme')">다운로드</button>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>🚀 사용 방법 (3단계)</h3>
+            <ol>
+                <li><strong>모든 파일 다운로드:</strong> 위의 "모든 파일 한번에 다운로드" 버튼 클릭</li>
+                <li><strong>라이브러리 설치:</strong> "라이브러리_설치.bat" 파일을 더블클릭 (최초 1회만)</li>
+                <li><strong>프로그램 실행:</strong> "실행.bat" 파일을 더블클릭하고 엔터만 누르면 완료!</li>
+            </ol>
+        </div>
+    </div>
+
+    <script>
+        const files = {
+            py: {
+                name: 'extract_images_from_word.py',
+                content: `#!/usr/bin/env python3
+"""
+Word 문서에서 이미지를 추출하고 AI 분석 후 엑셀 파일로 생성하는 스크립트
+"""
+
+import os
+import zipfile
+import shutil
+from pathlib import Path
+import base64
+from io import BytesIO
+
+try:
+    from PIL import Image
+    import openpyxl
+    from openpyxl.drawing.image import Image as XLImage
+    from openpyxl.styles import Font, Alignment, PatternFill
+except ImportError:
+    print("필요한 라이브러리를 설치해주세요:")
+    print("pip install pillow openpyxl python-docx")
+    exit(1)
+
+
+def extract_images_from_docx(docx_path, output_folder):
+    """
+    Word 문서(.docx)에서 이미지를 추출합니다.
+
+    Args:
+        docx_path: Word 문서 파일 경로
+        output_folder: 이미지를 저장할 폴더
+
+    Returns:
+        추출된 이미지 파일 경로 리스트
+    """
+    # 출력 폴더 생성
+    os.makedirs(output_folder, exist_ok=True)
+
+    # .docx 파일은 실제로 ZIP 파일입니다
+    temp_dir = os.path.join(output_folder, 'temp_extract')
+    os.makedirs(temp_dir, exist_ok=True)
+
+    image_files = []
+
+    try:
+        # ZIP으로 압축 해제
+        with zipfile.ZipFile(docx_path, 'r') as zip_ref:
+            zip_ref.extractall(temp_dir)
+
+        # word/media 폴더에서 이미지 찾기
+        media_path = os.path.join(temp_dir, 'word', 'media')
+
+        if os.path.exists(media_path):
+            for filename in os.listdir(media_path):
+                file_path = os.path.join(media_path, filename)
+
+                # 이미지 파일만 복사
+                if filename.lower().endswith(('.png', '.jpg', '.jpeg', '.gif', '.bmp', '.tiff', '.wmf', '.emf')):
+                    output_path = os.path.join(output_folder, filename)
+                    shutil.copy2(file_path, output_path)
+                    image_files.append(output_path)
+                    print(f"이미지 추출: {filename}")
+
+        # 임시 폴더 삭제
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+    except Exception as e:
+        print(f"오류 발생: {e}")
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+    return image_files
+
+
+def analyze_image(image_path):
+    """
+    이미지를 분석하여 설명을 생성합니다.
+    (실제 AI 분석은 API 키가 필요하므로, 기본 정보만 제공)
+
+    Args:
+        image_path: 이미지 파일 경로
+
+    Returns:
+        이미지 분석 정보 딕셔너리
+    """
+    try:
+        with Image.open(image_path) as img:
+            width, height = img.size
+            format_type = img.format
+            mode = img.mode
+
+            # 기본 분석 정보
+            analysis = {
+                '파일명': os.path.basename(image_path),
+                '경로': image_path,
+                '크기': f"{width} x {height}",
+                '포맷': format_type,
+                '색상모드': mode,
+                '파일크기': f"{os.path.getsize(image_path) / 1024:.2f} KB",
+                '설명': f"{format_type} 이미지, 해상도: {width}x{height}",
+                '추가정보': '게임기획 문서 내 이미지'
+            }
+
+            return analysis
+
+    except Exception as e:
+        return {
+            '파일명': os.path.basename(image_path),
+            '경로': image_path,
+            '오류': str(e)
+        }
+
+
+def create_excel_report(image_analyses, output_excel_path):
+    """
+    이미지 분석 결과를 엑셀 파일로 생성합니다.
+
+    Args:
+        image_analyses: 이미지 분석 결과 리스트
+        output_excel_path: 생성할 엑셀 파일 경로
+    """
+    # 새 워크북 생성
+    wb = openpyxl.Workbook()
+    ws = wb.active
+    ws.title = "이미지 분석 결과"
+
+    # 헤더 스타일
+    header_fill = PatternFill(start_color="4472C4", end_color="4472C4", fill_type="solid")
+    header_font = Font(bold=True, color="FFFFFF", size=12)
+
+    # 헤더 작성
+    headers = ['번호', '파일명', '크기', '포맷', '색상모드', '파일크기', '설명', '추가정보', '경로']
+    for col, header in enumerate(headers, start=1):
+        cell = ws.cell(row=1, column=col, value=header)
+        cell.fill = header_fill
+        cell.font = header_font
+        cell.alignment = Alignment(horizontal='center', vertical='center')
+
+    # 데이터 작성
+    for idx, analysis in enumerate(image_analyses, start=2):
+        ws.cell(row=idx, column=1, value=idx-1)  # 번호
+        ws.cell(row=idx, column=2, value=analysis.get('파일명', ''))
+        ws.cell(row=idx, column=3, value=analysis.get('크기', ''))
+        ws.cell(row=idx, column=4, value=analysis.get('포맷', ''))
+        ws.cell(row=idx, column=5, value=analysis.get('색상모드', ''))
+        ws.cell(row=idx, column=6, value=analysis.get('파일크기', ''))
+        ws.cell(row=idx, column=7, value=analysis.get('설명', ''))
+        ws.cell(row=idx, column=8, value=analysis.get('추가정보', ''))
+        ws.cell(row=idx, column=9, value=analysis.get('경로', ''))
+
+    # 열 너비 자동 조정
+    column_widths = {
+        'A': 8,   # 번호
+        'B': 25,  # 파일명
+        'C': 15,  # 크기
+        'D': 12,  # 포맷
+        'E': 12,  # 색상모드
+        'F': 15,  # 파일크기
+        'G': 50,  # 설명
+        'H': 20,  # 추가정보
+        'I': 60   # 경로
+    }
+
+    for col, width in column_widths.items():
+        ws.column_dimensions[col].width = width
+
+    # 행 높이 설정
+    ws.row_dimensions[1].height = 25
+
+    # 엑셀 파일 저장
+    wb.save(output_excel_path)
+    print(f"\\n엑셀 파일 생성 완료: {output_excel_path}")
+
+
+def main():
+    """메인 실행 함수"""
+    print("=" * 70)
+    print("Word 문서 이미지 추출 및 분석 도구")
+    print("=" * 70)
+
+    # 파일 경로 입력 (기본값 설정)
+    default_path = r"C:\\Users\\up_ma\\OneDrive\\바탕 화면\\게임캔버스\\1.기획이론\\포트폴리오_구본일\\원고작업\\원고서식_25년버전\\1. 게임기획 취업바이블_기획의개요.docx"
+
+    print(f"\\n기본 경로: {default_path}")
+    docx_path = input("\\nWord 문서 경로를 입력하세요 (엔터: 기본값 사용): ").strip()
+
+    if not docx_path:
+        docx_path = default_path
+
+    # 파일 존재 확인
+    if not os.path.exists(docx_path):
+        print(f"\\n오류: 파일을 찾을 수 없습니다: {docx_path}")
+        print("\\n전체 파일 경로를 확인해주세요.")
+        print("예: C:\\\\Users\\\\up_ma\\\\OneDrive\\\\바탕 화면\\\\문서.docx")
+        return
+
+    # 출력 폴더 설정
+    base_name = os.path.splitext(os.path.basename(docx_path))[0]
+    output_folder = os.path.join(os.path.dirname(docx_path), f"{base_name}_이미지")
+
+    print(f"\\n이미지 저장 폴더: {output_folder}")
+
+    # 이미지 추출
+    print("\\n" + "=" * 70)
+    print("1단계: 이미지 추출 중...")
+    print("=" * 70)
+    image_files = extract_images_from_docx(docx_path, output_folder)
+
+    if not image_files:
+        print("\\n이미지를 찾을 수 없습니다.")
+        return
+
+    print(f"\\n총 {len(image_files)}개의 이미지를 추출했습니다.")
+
+    # 이미지 분석
+    print("\\n" + "=" * 70)
+    print("2단계: 이미지 분석 중...")
+    print("=" * 70)
+    image_analyses = []
+    for img_path in image_files:
+        analysis = analyze_image(img_path)
+        image_analyses.append(analysis)
+        print(f"분석 완료: {analysis.get('파일명', '')}")
+
+    # 엑셀 파일 생성
+    print("\\n" + "=" * 70)
+    print("3단계: 엑셀 파일 생성 중...")
+    print("=" * 70)
+    excel_path = os.path.join(os.path.dirname(docx_path), f"{base_name}_이미지분석.xlsx")
+    create_excel_report(image_analyses, excel_path)
+
+    print("\\n" + "=" * 70)
+    print("작업 완료!")
+    print("=" * 70)
+    print(f"\\n추출된 이미지: {output_folder}")
+    print(f"분석 결과 엑셀: {excel_path}")
+    print("\\n")
+
+
+if __name__ == "__main__":
+    try:
+        main()
+    except KeyboardInterrupt:
+        print("\\n\\n작업이 취소되었습니다.")
+    except Exception as e:
+        print(f"\\n오류 발생: {e}")
+        import traceback
+        traceback.print_exc()
+
+    input("\\n엔터를 누르면 종료합니다...")
+`
+            },
+            run: {
+                name: '실행.bat',
+                content: `@echo off
+chcp 65001 > nul
+echo ============================================================
+echo Word 문서 이미지 추출 및 분석 도구
+echo ============================================================
+echo.
+
+REM Python 설치 확인
+python --version > nul 2>&1
+if errorlevel 1 (
+    echo [오류] Python이 설치되어 있지 않습니다.
+    echo Python을 먼저 설치해주세요: https://www.python.org/downloads/
+    echo.
+    pause
+    exit /b 1
+)
+
+echo Python 확인 완료!
+echo.
+
+REM 필요한 라이브러리 설치 확인 및 설치
+echo 필요한 라이브러리 확인 중...
+pip show pillow > nul 2>&1
+if errorlevel 1 (
+    echo pillow 라이브러리 설치 중...
+    pip install pillow
+)
+
+pip show openpyxl > nul 2>&1
+if errorlevel 1 (
+    echo openpyxl 라이브러리 설치 중...
+    pip install openpyxl
+)
+
+pip show python-docx > nul 2>&1
+if errorlevel 1 (
+    echo python-docx 라이브러리 설치 중...
+    pip install python-docx
+)
+
+echo.
+echo 라이브러리 설치 완료!
+echo.
+echo ============================================================
+echo 프로그램 실행 중...
+echo ============================================================
+echo.
+
+REM Python 스크립트 실행
+python extract_images_from_word.py
+
+echo.
+pause
+`
+            },
+            install: {
+                name: '라이브러리_설치.bat',
+                content: `@echo off
+chcp 65001 > nul
+echo ============================================================
+echo Python 라이브러리 설치 도구
+echo ============================================================
+echo.
+
+REM Python 설치 확인
+python --version > nul 2>&1
+if errorlevel 1 (
+    echo [오류] Python이 설치되어 있지 않습니다.
+    echo.
+    echo Python 다운로드: https://www.python.org/downloads/
+    echo.
+    echo 설치 시 주의사항:
+    echo - "Add Python to PATH" 옵션을 반드시 체크하세요!
+    echo.
+    pause
+    exit /b 1
+)
+
+echo Python 버전:
+python --version
+echo.
+
+echo ============================================================
+echo 필요한 라이브러리를 설치합니다...
+echo ============================================================
+echo.
+
+echo [1/3] Pillow (이미지 처리) 설치 중...
+pip install pillow --upgrade
+echo.
+
+echo [2/3] openpyxl (엑셀 파일 생성) 설치 중...
+pip install openpyxl --upgrade
+echo.
+
+echo [3/3] python-docx (Word 문서 처리) 설치 중...
+pip install python-docx --upgrade
+echo.
+
+echo ============================================================
+echo 설치 완료!
+echo ============================================================
+echo.
+
+echo 설치된 라이브러리 확인:
+pip list | findstr "pillow openpyxl python-docx"
+echo.
+
+echo 이제 '실행.bat' 파일을 실행하세요!
+echo.
+pause
+`
+            },
+            readme: {
+                name: 'README_사용법.md',
+                content: `# Word 문서 이미지 추출 및 분석 도구 사용법
+
+## 📋 개요
+게임기획 Word 문서에서 이미지를 자동으로 추출하고 분석하여 엑셀 파일로 정리하는 도구입니다.
+
+## 🚀 설치 방법
+
+### 1단계: Python 설치 확인
+Windows PowerShell 또는 명령 프롬프트(CMD)를 열고 다음 명령어 입력:
+\`\`\`bash
+python --version
+\`\`\`
+
+Python이 설치되어 있지 않다면:
+- https://www.python.org/downloads/ 에서 Python 다운로드 및 설치
+- 설치 시 "Add Python to PATH" 옵션 체크!
+
+### 2단계: 필요한 라이브러리 설치
+명령 프롬프트 또는 PowerShell에서 다음 명령어 실행:
+\`\`\`bash
+pip install pillow openpyxl python-docx
+\`\`\`
+
+## 📝 사용 방법
+
+### 방법 1: 스크립트 파일 다운로드 후 실행
+
+1. \`extract_images_from_word.py\` 파일을 다운로드합니다
+
+2. Word 문서가 있는 폴더에 스크립트 파일을 복사합니다
+
+3. 명령 프롬프트에서 해당 폴더로 이동:
+   \`\`\`bash
+   cd "C:\\Users\\up_ma\\OneDrive\\바탕 화면\\게임캔버스\\1.기획이론\\포트폴리오_구본일\\원고작업"
+   \`\`\`
+
+4. 스크립트 실행:
+   \`\`\`bash
+   python extract_images_from_word.py
+   \`\`\`
+
+5. 프롬프트가 나타나면:
+   - 엔터: 기본 파일 경로 사용
+   - 또는 전체 파일 경로 입력
+
+### 방법 2: 간편 실행 (배치 파일 사용)
+
+\`실행.bat\` 파일을 더블클릭하면 자동 실행됩니다.
+
+## 📊 결과물
+
+실행이 완료되면 다음 파일들이 생성됩니다:
+
+1. **이미지 폴더**: \`[문서명]_이미지/\`
+   - Word 문서에서 추출된 모든 이미지가 저장됩니다
+
+2. **엑셀 파일**: \`[문서명]_이미지분석.xlsx\`
+   - 각 이미지의 상세 정보가 정리되어 있습니다
+   - 포함 정보: 파일명, 크기, 포맷, 색상모드, 설명 등
+
+## 🎯 엑셀 파일 내용
+
+생성된 엑셀 파일에는 다음 정보가 포함됩니다:
+
+| 번호 | 파일명 | 크기 | 포맷 | 색상모드 | 파일크기 | 설명 | 추가정보 | 경로 |
+|------|--------|------|------|----------|----------|------|----------|------|
+| 1 | image1.png | 800x600 | PNG | RGB | 125.5 KB | PNG 이미지... | 게임기획 문서 내 이미지 | ... |
+
+## ⚠️ 주의사항
+
+1. Word 문서는 \`.docx\` 형식이어야 합니다 (.doc는 지원 안 됨)
+2. 파일 경로에 한글이 포함되어도 정상 작동합니다
+3. 이미지가 없는 문서는 빈 결과를 반환합니다
+
+## 🔧 문제 해결
+
+### "모듈을 찾을 수 없습니다" 오류
+\`\`\`bash
+pip install pillow openpyxl python-docx --upgrade
+\`\`\`
+
+### "파일을 찾을 수 없습니다" 오류
+- 파일 경로를 확인하세요
+- 전체 경로를 복사해서 입력하세요
+- 경로에 따옴표를 추가해보세요
+
+### Python 명령어가 작동하지 않음
+- Python이 제대로 설치되었는지 확인
+- 환경 변수 PATH에 Python이 추가되어 있는지 확인
+
+## 💡 추가 기능
+
+### AI 이미지 분석 (고급)
+실제 AI 분석을 원하시면:
+1. OpenAI API 키 또는 Claude API 키 준비
+2. 스크립트의 \`analyze_image()\` 함수 수정
+3. AI API 호출 코드 추가
+
+## 📞 문의
+
+문제가 발생하면 오류 메시지를 캡처해서 알려주세요!
+`
+            }
+        };
+
+        function downloadFile(type) {
+            const file = files[type];
+            const blob = new Blob([file.content], { type: 'text/plain;charset=utf-8' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = file.name;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            window.URL.revokeObjectURL(url);
+        }
+
+        function downloadAll() {
+            // 순차적으로 다운로드 (동시에 다운로드하면 브라우저가 차단할 수 있음)
+            setTimeout(() => downloadFile('py'), 100);
+            setTimeout(() => downloadFile('run'), 300);
+            setTimeout(() => downloadFile('install'), 500);
+            setTimeout(() => downloadFile('readme'), 700);
+        }
+    </script>
+</body>
+</html>
